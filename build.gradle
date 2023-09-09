@@ -4,6 +4,6 @@ plugins {
 
 jar {
     manifest {
-        attributes 'Main-Class' : 'src.main.java.Main'
+        attributes 'Main-Class' : 'Main'
     }
 }
