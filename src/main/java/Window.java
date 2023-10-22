@@ -14,8 +14,10 @@ public class Window extends JFrame implements ActionListener {
     private static HashMap<String,Mixer.Info> micsMap;
 
     private static JComboBox select;
+    private JButton recordBtn;
 
     Update updateVar;
+    private boolean isRecording;
     
     public Window(Update updateVar){
 
@@ -40,8 +42,15 @@ public class Window extends JFrame implements ActionListener {
         select = new JComboBox(mics.toArray());
         select.addActionListener(this);
 
+        recordBtn = new JButton("Record");
+        recordBtn.setBackground(Color.RED);
+        recordBtn.addActionListener(this);
+        recordBtn.setForeground(Color.WHITE);
+
+
 
         this.add(select);
+        this.add(recordBtn);
 
         this.setVisible(true);
     }
@@ -52,6 +61,11 @@ public class Window extends JFrame implements ActionListener {
             selectedInput = micsMap.get(select.getSelectedItem());
 
             updateVar.update(AudioSystem.getMixer(selectedInput));
+        } else if(e.getSource() == recordBtn){
+            isRecording = !isRecording;
+
+            recordBtn.setBackground(isRecording ? new Color(71, 201, 95) : Color.RED);
+            recordBtn.setText(isRecording ? "Recording..." : "Record");
         }
     }
 
